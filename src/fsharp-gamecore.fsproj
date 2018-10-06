@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageVersion>1.0.1</PackageVersion>
+    <PackageId>fsharp-gamecore</PackageId>
+    <Title>FSharp GameCore</Title>
+    <Authors>Christopher Pritchard (https://github.com/ChrisPritchard)</Authors>
+    <Description>A fleshed-out game loop from MonoGame with supporting classes, intended to be used as the core loop of larger games.</Description>
+    <PackageTags>monogame fsharp</PackageTags>
+    <PackageLicenseUrl>http://unlicense.org/</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/ChrisPritchard/fsharp-gamecore</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Model.fs" />
+    <Compile Include="GameCore.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.7" />
+  </ItemGroup>
+
+</Project>
