@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "fsharp-gamecore", "src\fsharp-gamecore.fsproj", "{9CCD1598-9586-4814-A1AF-7B21B1287986}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "sample", "sample\sample.fsproj", "{96EB6FD2-669A-44C6-967F-925B3416F255}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,17 @@ Global
 		{9CCD1598-9586-4814-A1AF-7B21B1287986}.Release|x64.Build.0 = Release|Any CPU
 		{9CCD1598-9586-4814-A1AF-7B21B1287986}.Release|x86.ActiveCfg = Release|Any CPU
 		{9CCD1598-9586-4814-A1AF-7B21B1287986}.Release|x86.Build.0 = Release|Any CPU
+		{96EB6FD2-669A-44C6-967F-925B3416F255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96EB6FD2-669A-44C6-967F-925B3416F255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96EB6FD2-669A-44C6-967F-925B3416F255}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{96EB6FD2-669A-44C6-967F-925B3416F255}.Debug|x64.Build.0 = Debug|Any CPU
+		{96EB6FD2-669A-44C6-967F-925B3416F255}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{96EB6FD2-669A-44C6-967F-925B3416F255}.Debug|x86.Build.0 = Debug|Any CPU
+		{96EB6FD2-669A-44C6-967F-925B3416F255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96EB6FD2-669A-44C6-967F-925B3416F255}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96EB6FD2-669A-44C6-967F-925B3416F255}.Release|x64.ActiveCfg = Release|Any CPU
+		{96EB6FD2-669A-44C6-967F-925B3416F255}.Release|x64.Build.0 = Release|Any CPU
+		{96EB6FD2-669A-44C6-967F-925B3416F255}.Release|x86.ActiveCfg = Release|Any CPU
+		{96EB6FD2-669A-44C6-967F-925B3416F255}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
