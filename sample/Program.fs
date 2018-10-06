@@ -1,5 +1,5 @@
-﻿open GameCore
-open Model
+﻿open GameCore.GameLoop
+open GameCore.Model
 
 [<EntryPoint>]
 let main _ =

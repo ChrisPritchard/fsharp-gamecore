@@ -1,6 +1,6 @@
-﻿module GameCore
+﻿module GameCore.GameLoop
 
-open Model
+open GameCore.Model
 open System
 open System.IO
 open Microsoft.Xna.Framework
