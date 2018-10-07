@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageVersion>0.0.1</PackageVersion>
+    <PackageVersion>0.0.2</PackageVersion>
     <PackageId>fsharp-gamecore</PackageId>
     <Title>FSharp GameCore</Title>
     <Authors>Christopher Pritchard (https://github.com/ChrisPritchard)</Authors>
@@ -13,7 +13,6 @@
     <PackageTags>monogame fsharp</PackageTags>
     <PackageLicenseUrl>http://unlicense.org/</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/ChrisPritchard/fsharp-gamecore</RepositoryUrl>
-    <IncludeBuildOutput>true</IncludeBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +25,11 @@
     <None Include="Connection.otf" />
     <None Include="default.spritefont" />
     <MonoGameContentReference Include="**\*.mgcb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="_white.xnb" CopyToOutputDirectory="preserveNewest" />
+    <Content Include="_system.xnb" CopyToOutputDirectory="preserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,7 +4,7 @@ A fleshed-out game loop from MonoGame with supporting classes, intended to be us
 
 Designed so that all XNA bits and necessary mutable fields are wrapped inside the GameLoop class, allowing a parent application to remain purely functional and almost platform agnostic.
 
-Available on Nuget at: <https://www.nuget.org/packages/fsharp-gamecore/0.0.1>
+Available on Nuget at: <https://www.nuget.org/packages/fsharp-gamecore/0.0.2>
 
 ## Samples
 
