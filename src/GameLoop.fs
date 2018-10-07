@@ -131,10 +131,14 @@ type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFps)
         drawImage spriteBatch ("_white", (position, 0, 20, 18)) (Color.DarkSlateGray)
         drawText spriteBatch ("_system", sprintf "%i" fps, (position + 3, 3), TopLeft, 0.2) Color.White
 
-    let defaultAssets () = [
-        ("_white", TextureAsset <| this.Content.Load<Texture2D> "./_white")
-        ("_system", FontAsset <| this.Content.Load<SpriteFont> "./_system")
-    ]
+    let defaultAssets () = 
+        let pixel = new Texture2D(this.GraphicsDevice, 1, 1) 
+        let colorData = [|Color.White|]
+        pixel.SetData<Color> (colorData) 
+        [
+            ("_white", TextureAsset pixel)
+            ("_system", FontAsset <| this.Content.Load<SpriteFont> "./_system")
+        ]
 
     override __.LoadContent() = 
         spriteBatch <- new SpriteBatch(this.GraphicsDevice)
