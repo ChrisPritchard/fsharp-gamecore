@@ -129,6 +129,11 @@ type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFps)
         Console.CursorLeft <- 0
         printf "FPS: %i" fps
 
+    let defaultAssets () = [
+        ("_white", TextureAsset <| this.Content.Load<Texture2D> "./_white")
+        ("_system", FontAsset <| this.Content.Load<SpriteFont> "./_system")
+    ]
+
     override __.LoadContent() = 
         spriteBatch <- new SpriteBatch(this.GraphicsDevice)
         assets <- 
@@ -154,6 +159,7 @@ type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFps)
                 | Song (key, path) ->
                     let uri = new Uri (path, UriKind.RelativeOrAbsolute)
                     key, Song.FromUri (key, uri) |> MusicAsset) 
+            |> List.append (defaultAssets ())
             |> Map.ofList
 
     override __.Update(gameTime) =
@@ -186,9 +192,11 @@ type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFps)
         currentView
             |> Seq.iter (
                 function 
+                | Colour (d, c) -> drawImage spriteBatch ("_white", d) c
                 | Image (a,d,c) -> drawImage spriteBatch (a,d) c
                 | MappedImage (a,m,d,c) -> drawMappedImage spriteBatch (a,m,d) c
                 | Text (a,t,p,o,s,c) -> drawText spriteBatch (a,t,p,o,s) c
+                | SystemText (t,p,o,s,c) -> drawText spriteBatch ("_system",t,p,o,s) c
                 | SoundEffect s -> playSound s
                 | Music s -> playMusic s)
 

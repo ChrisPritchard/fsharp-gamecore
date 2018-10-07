@@ -13,14 +13,14 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin default.spritefont
+#begin _system.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:default.spritefont
+/build:_system.spritefont
 
-#begin white.bmp
+#begin _white.bmp
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -30,5 +30,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:white.bmp
+/build:_white.bmp
 
