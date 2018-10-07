@@ -119,15 +119,17 @@ type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFps)
             MediaPlayer.Play (song)
             MediaPlayer.IsRepeating <- true
 
-    let updateAndPrintFPS (gameTime : GameTime) = 
+    let updateAndPrintFPS (gameTime : GameTime) (spriteBatch: SpriteBatch) = 
         if gameTime.TotalGameTime.TotalMilliseconds - drawCountStart > 1000. then
             fps <- drawCount
             drawCountStart <- gameTime.TotalGameTime.TotalMilliseconds
             drawCount <- 0
         else
             drawCount <- drawCount + 1
-        Console.CursorLeft <- 0
-        printf "FPS: %i" fps
+        
+        let position = graphics.PreferredBackBufferWidth - 20
+        drawImage spriteBatch ("_white", (position, 0, 20, 18)) (Color.DarkSlateGray)
+        drawText spriteBatch ("_system", sprintf "%i" fps, (position + 3, 3), TopLeft, 0.2) Color.White
 
     let defaultAssets () = [
         ("_white", TextureAsset <| this.Content.Load<Texture2D> "./_white")
@@ -199,8 +201,8 @@ type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFps)
                 | SystemText (t,p,o,s,c) -> drawText spriteBatch ("_system",t,p,o,s) c
                 | SoundEffect s -> playSound s
                 | Music s -> playMusic s)
+        
+        if showFps then
+            updateAndPrintFPS gameTime spriteBatch
 
         spriteBatch.End()
-
-        if showFps then
-            updateAndPrintFPS gameTime
