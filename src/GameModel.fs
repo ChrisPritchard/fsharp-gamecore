@@ -44,16 +44,6 @@ type Resolution =
 | FullScreen of int * int
 
 /// <summary>
-/// Loaded assets, derived from the Loadable definitions. Not intended to be manipulated outside the game loop
-/// </summary>
-type Content =
-| TextureAsset of Texture2D
-| TextureMapAsset of Texture2D * Map<string, Rectangle>
-| FontAsset of SpriteFont
-| SoundAsset of SoundEffect
-| MusicAsset of Song
-
-/// <summary>
 /// The current state of the game. Basically elapsed time and the state of the keyboard or mouse
 /// </summary>
 type RunState = {
@@ -76,3 +66,10 @@ let isAnyPressed keyList runState = keyList |> List.exists (fun k -> isPressed k
 let isMousePressed (left, right) runState = 
     let (ml, mr) = runState.mouse.pressed
     ((ml && left) || (mr && right))
+
+type internal Content =
+| TextureAsset of Texture2D
+| TextureMapAsset of Texture2D * Map<string, Rectangle>
+| FontAsset of SpriteFont
+| SoundAsset of SoundEffect
+| MusicAsset of Song
