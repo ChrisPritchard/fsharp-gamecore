@@ -1,4 +1,4 @@
-module GameCore.Model
+module GameCore.GameModel
 
 open Microsoft.Xna.Framework
 open Microsoft.Xna.Framework.Graphics

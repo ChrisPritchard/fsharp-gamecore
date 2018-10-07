@@ -1,5 +1,5 @@
 ﻿open GameCore.GameLoop
-open GameCore.Model
+open GameCore.GameModel
 open Microsoft.Xna.Framework
 open Microsoft.Xna.Framework.Input
 
