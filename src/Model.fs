@@ -7,7 +7,10 @@ open Microsoft.Xna.Framework.Media
 open Microsoft.Xna.Framework.Input
 
 /// <summary>
-/// Definitions of assets to load on start, e.g. named texture files
+/// Definitions of assets to load on start, e.g. named texture files.
+/// IMPORTANT: all paths are relative paths to content files, e.g. /Content/Sprite.png, 
+/// except for fonts, which MUST be relative paths (without extensions) to spritefonts built using the content pipeline.
+/// This is because fonts cannot be direct loaded, and must be processed via the pipeline.
 /// </summary>
 type Loadable =
 | Texture of key:string * path:string
