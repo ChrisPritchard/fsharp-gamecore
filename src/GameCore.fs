@@ -9,6 +9,10 @@ open Microsoft.Xna.Framework.Input;
 open Microsoft.Xna.Framework.Audio
 open Microsoft.Xna.Framework.Media
 
+/// <summary>
+/// The core game loop. Provided with a model, asset information and transition methods (like updateModel or getView) this loop powers the game.
+/// Important: when instantiating a game loop, it is important to do so with 'use' instead of 'let', as the game loop needs to be disposed properly.
+/// </summary>
 type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFps)
     as this = 
     inherit Game()
