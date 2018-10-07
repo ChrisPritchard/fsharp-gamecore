@@ -17,19 +17,14 @@
 
   <ItemGroup>
     <Compile Include="GameModel.fs" />
+    <Compile Include="DefaultAssets.fs" />
     <Compile Include="GameLoop.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="defaults.mgcb" />
-    <None Include="Connection.otf" />
-    <None Include="default.spritefont" />
-    <MonoGameContentReference Include="**\*.mgcb" />
+    <EmbeddedResource Include="Connection.otf" />
+    <EmbeddedResource Include="Connection.spritefont" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.7" />
-    <PackageReference Include="MonoGame.Content.Builder" Version="3.7.0.4" />
   </ItemGroup>
 
 </Project>
