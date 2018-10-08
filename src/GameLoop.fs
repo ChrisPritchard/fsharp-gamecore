@@ -13,13 +13,14 @@ open Microsoft.Xna.Framework.Media
 /// The core game loop. Provided with a model, asset information and transition methods (like updateModel or getView) this loop powers the game.
 /// Important: when instantiating a game loop, it is important to do so with 'use' instead of 'let', as the game loop needs to be disposed properly.
 /// </summary>
-type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFps)
+type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFpsWithFont)
     as this = 
     inherit Game()
 
     let mutable graphics = new GraphicsDeviceManager(this)
 
     let mutable assets = Map.empty<string, Content>
+    let mutable whiteTexture: Texture2D = null
 
     let mutable keyboardInfo = { pressed = []; keysDown = []; keysUp = [] }
     let mutable currentModel: 'TModel option = None
@@ -60,6 +61,12 @@ type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFps)
     let asVector2 (x,y) = new Vector2(float32 x, float32 y)
     let asRectangle (x,y,width,height) = 
         new Rectangle (x,y,width,height)
+
+    let drawColour (spriteBatch: SpriteBatch) destRect colour = 
+        spriteBatch.Draw(
+            whiteTexture, asRectangle destRect, 
+            Unchecked.defaultof<Nullable<Rectangle>>, colour, 0.0f, Vector2.Zero, 
+            SpriteEffects.None, 0.0f)
     
     let drawImage (spriteBatch: SpriteBatch) (assetKey, destRect) colour = 
         match Map.tryFind assetKey assets with
@@ -119,7 +126,7 @@ type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFps)
             MediaPlayer.Play (song)
             MediaPlayer.IsRepeating <- true
 
-    let updateAndPrintFPS (gameTime : GameTime) (spriteBatch: SpriteBatch) = 
+    let updateAndPrintFPS (gameTime : GameTime) fontAsset (spriteBatch: SpriteBatch) = 
         if gameTime.TotalGameTime.TotalMilliseconds - drawCountStart > 1000. then
             fps <- drawCount
             drawCountStart <- gameTime.TotalGameTime.TotalMilliseconds
@@ -128,11 +135,15 @@ type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFps)
             drawCount <- drawCount + 1
         
         let position = graphics.PreferredBackBufferWidth - 20
-        drawImage spriteBatch ("_white", (position, 0, 20, 18)) (Color.DarkSlateGray)
-        drawText spriteBatch ("_system", sprintf "%i" fps, (position + 3, 3), TopLeft, 0.2) Color.White
+        drawColour spriteBatch (position, 0, 20, 18) (Color.DarkSlateGray)
+        drawText spriteBatch (fontAsset, sprintf "%i" fps, (position + 3, 3), TopLeft, 0.2) Color.White
 
     override __.LoadContent() = 
         spriteBatch <- new SpriteBatch(this.GraphicsDevice)
+
+        whiteTexture <- new Texture2D(this.GraphicsDevice, 1, 1) 
+        whiteTexture.SetData<Color> [|Color.White|]
+
         assets <- 
             assetsToLoad
             |> List.map (
@@ -156,7 +167,6 @@ type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFps)
                 | Song (key, path) ->
                     let uri = new Uri (path, UriKind.RelativeOrAbsolute)
                     key, Song.FromUri (key, uri) |> MusicAsset) 
-            |> List.append (DefaultAssets.loadDefaultAssets this.GraphicsDevice)
             |> Map.ofList
 
     override __.Update(gameTime) =
@@ -189,15 +199,15 @@ type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFps)
         currentView
             |> Seq.iter (
                 function 
-                | Colour (d, c) -> drawImage spriteBatch ("_white", d) c
+                | Colour (d, c) -> drawColour spriteBatch d c
                 | Image (a,d,c) -> drawImage spriteBatch (a,d) c
                 | MappedImage (a,m,d,c) -> drawMappedImage spriteBatch (a,m,d) c
                 | Text (a,t,p,o,s,c) -> drawText spriteBatch (a,t,p,o,s) c
-                | SystemText (t,p,o,s,c) -> drawText spriteBatch ("_system",t,p,o,s) c
                 | SoundEffect s -> playSound s
                 | Music s -> playMusic s)
         
-        if showFps then
-            updateAndPrintFPS gameTime spriteBatch
+        match showFpsWithFont with
+        | Some fontAsset -> updateAndPrintFPS gameTime fontAsset spriteBatch
+        | None -> ()
 
         spriteBatch.End()

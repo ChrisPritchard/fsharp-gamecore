@@ -10,7 +10,9 @@ let main _ =
     let resolution = Windowed (width, height)
 
     // a list of GameCore.Model.Loadable values
-    let assetsToLoad = []
+    let assetsToLoad = [
+        Font ("connection", "./connection")
+    ]
 
     let updateModel runState model =
         match model with
@@ -27,10 +29,10 @@ let main _ =
         [
             Colour ((centrex - 100, centrey - 50, 200, 80), Color.Red)
             // just rendering the model (an ever increasing int) centre screen
-            SystemText (sprintf "%i" model, (centrex, centrey), Centre, 1., Color.White)
+            Text ("connection", sprintf "%i" model, (centrex, centrey), Centre, 1., Color.White)
         ]
 
-    let showFPS = true // this will have FPS rendered in the top right, topping out at about 60 if all is well.
-    use game = new GameLoop<int>(resolution, assetsToLoad, updateModel, getView, showFPS)
+    let showFpsWithFont = Some "connection" // this will have FPS rendered in the top right, topping out at about 60 if all is well.
+    use game = new GameLoop<int>(resolution, assetsToLoad, updateModel, getView, showFpsWithFont)
     game.Run ()
     0

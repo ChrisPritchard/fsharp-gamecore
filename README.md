@@ -4,7 +4,7 @@ A fleshed-out game loop from MonoGame with supporting classes, intended to be us
 
 Designed so that all XNA bits and necessary mutable fields are wrapped inside the GameLoop class, allowing a parent application to remain purely functional and almost platform agnostic.
 
-Available on Nuget at: <https://www.nuget.org/packages/fsharp-gamecore/0.0.2>
+Available on Nuget at: <https://www.nuget.org/packages/fsharp-gamecore/0.0.3>
 
 ## Samples
 
@@ -16,6 +16,6 @@ Provided under **Unilicense** (except for the font, see below), so go nuts.
 
 ## Font and its License
 
-The game core comes with a default font, used for displaying things like FPS. The font used is 'Connection', from here: <https://fontlibrary.org/en/font/connection>
+The game core sample includes a font that is compiled by the monogame pipeline. The font used is 'Connection', from here: <https://fontlibrary.org/en/font/connection>
 
 This font is provided under the **SIL Open Font License**, a copy of which lies in the root of this repository.

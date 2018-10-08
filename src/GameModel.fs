@@ -32,7 +32,6 @@ type ViewArtifact =
 | Image of assetKey:string * destRect: (int*int*int*int) * color:Color
 | MappedImage of assetKey:string * mapKey:string * destRect: (int*int*int*int) * color:Color
 | Text of assetKey:string * text:string * position:(int*int) * origin:Origin * scale:float * color:Color
-| SystemText of text:string * position:(int*int) * origin:Origin * scale:float * color:Color
 | SoundEffect of string
 | Music of string
 

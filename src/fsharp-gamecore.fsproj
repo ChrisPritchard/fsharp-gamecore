@@ -17,10 +17,7 @@
 
   <ItemGroup>
     <Compile Include="GameModel.fs" />
-    <Compile Include="DefaultAssets.fs" />
     <Compile Include="GameLoop.fs" />
-    <EmbeddedResource Include="Connection.otf" />
-    <EmbeddedResource Include="Connection.spritefont" />
   </ItemGroup>
 
   <ItemGroup>
