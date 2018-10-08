@@ -11,6 +11,7 @@ let main _ =
 
     // a list of GameCore.Model.Loadable values
     let assetsToLoad = [
+        // the first part is the assetKey, referenced elsewhere (e.g. get view below)
         Font ("connection", "./connection")
     ]
 
@@ -18,9 +19,9 @@ let main _ =
         match model with
         // The model will start as none, so this is where the initial model is specified
         | None -> Some 0
-        // returnin None from an updateModel function will exit the application
+        // if None is returned from an updateModel function, this will exit the application
         | _ when wasJustPressed Keys.Escape runState -> None
-        // business as usual
+        // business as usual, update the model due to state changes or time etc.
         | Some n -> Some <| n + 1
 
     // should return a list of GameCore.Model.ViewArtifacts
