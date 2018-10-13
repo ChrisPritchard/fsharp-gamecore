@@ -13,9 +13,9 @@ let main _ =
         match model with
         // The model will start as none, so this is where the initial model is specified
         | None -> Some 0
-        // returnin None from an updateModel function will exit the application
+        // if None is returned from an updateModel function, this will exit the application
         | _ when wasJustPressed Keys.Escape runState -> None
-        // business as usual
+        // business as usual, update the model due to state changes or time etc.
         | Some n -> Some <| n + 1
 
     // should return a list of GameCore.Model.ViewArtifacts
@@ -32,6 +32,7 @@ let main _ =
         resolution = Windowed (width, height)
         // a list of GameCore.Model.Loadable values
         assetsToLoad = [
+            // the first part is the assetKey, referenced in getView and the fps counter
             Font ("connection", "./connection")
         ]
         // this will have FPS rendered in the top right, topping out at about 60 if all is well.
