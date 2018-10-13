@@ -10,10 +10,21 @@ open Microsoft.Xna.Framework.Audio
 open Microsoft.Xna.Framework.Media
 
 /// <summary>
+/// Config settings for the game to run. Things like assets to load, 
+/// the resolution, whether or not to clear each frame and with what colour etc
+/// </summary>
+type GameConfig = {
+    clearColour: Color option
+    resolution: Resolution
+    assetsToLoad: Loadable list
+    fpsFont: string option
+}
+
+/// <summary>
 /// The core game loop. Provided with a model, asset information and transition methods (like updateModel or getView) this loop powers the game.
 /// Important: when instantiating a game loop, it is important to do so with 'use' instead of 'let', as the game loop needs to be disposed properly.
 /// </summary>
-type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFpsWithFont)
+type internal GameLoop<'TModel> (config, updateModel, getView)
     as this = 
     inherit Game()
 
@@ -35,7 +46,7 @@ type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFpsW
     let mutable spriteBatch = Unchecked.defaultof<SpriteBatch>
 
     do 
-        match resolution with
+        match config.resolution with
         | FullScreen (w,h) -> 
             graphics.PreferredBackBufferWidth <- w
             graphics.PreferredBackBufferHeight <- h
@@ -145,7 +156,7 @@ type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFpsW
         whiteTexture.SetData<Color> [|Color.White|]
 
         assets <- 
-            assetsToLoad
+            config.assetsToLoad
             |> List.map (
                 function
                 | Texture (key, path) -> 
@@ -192,7 +203,10 @@ type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFpsW
 
     override __.Draw(gameTime) =
         firstDrawComplete <- true
-        this.GraphicsDevice.Clear Color.Black
+        
+        match config.clearColour with
+        | Some c -> this.GraphicsDevice.Clear c
+        | None -> ()
         
         spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp)
 
@@ -206,7 +220,7 @@ type GameLoop<'TModel> (resolution, assetsToLoad, updateModel, getView, showFpsW
                 | SoundEffect s -> playSound s
                 | Music s -> playMusic s)
         
-        match showFpsWithFont with
+        match config.fpsFont with
         | Some fontAsset -> updateAndPrintFPS gameTime fontAsset spriteBatch
         | None -> ()
 

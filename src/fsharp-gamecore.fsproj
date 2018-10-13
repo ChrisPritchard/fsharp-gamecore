@@ -18,6 +18,7 @@
   <ItemGroup>
     <Compile Include="GameModel.fs" />
     <Compile Include="GameLoop.fs" />
+    <Compile Include="GameRunner.fs" />
   </ItemGroup>
 
   <ItemGroup>

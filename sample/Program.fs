@@ -1,5 +1,6 @@
 ﻿open GameCore.GameLoop
 open GameCore.GameModel
+open GameCore.GameRunner
 open Microsoft.Xna.Framework
 open Microsoft.Xna.Framework.Input
 
@@ -7,12 +8,6 @@ open Microsoft.Xna.Framework.Input
 let main _ =
     
     let (width, height) = 640, 480
-    let resolution = Windowed (width, height)
-
-    // a list of GameCore.Model.Loadable values
-    let assetsToLoad = [
-        Font ("connection", "./connection")
-    ]
 
     let updateModel runState model =
         match model with
@@ -31,8 +26,17 @@ let main _ =
             // just rendering the model (an ever increasing int) centre screen
             Text ("connection", sprintf "%i" model, (centrex, centrey), Centre, 1., Color.White)
         ]
+    
+    let config = {
+        clearColour = None
+        resolution = Windowed (width, height)
+        // a list of GameCore.Model.Loadable values
+        assetsToLoad = [
+            Font ("connection", "./connection")
+        ]
+        // this will have FPS rendered in the top right, topping out at about 60 if all is well.
+        fpsFont = Some "connection"
+    }
 
-    let showFpsWithFont = Some "connection" // this will have FPS rendered in the top right, topping out at about 60 if all is well.
-    use game = new GameLoop<int>(resolution, assetsToLoad, updateModel, getView, showFpsWithFont)
-    game.Run ()
+    runGame config updateModel getView
     0
