@@ -137,9 +137,9 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
         else
             drawCount <- drawCount + 1
         
-        let position = graphics.PreferredBackBufferWidth - 20
-        drawColour spriteBatch (position, 0, 20, 18) (Color.DarkSlateGray)
-        drawText spriteBatch (fontAsset, sprintf "%i" fps, (position + 3, 3), TopLeft, 0.2) Color.White
+        let position = graphics.PreferredBackBufferWidth - 40
+        drawColour spriteBatch (position, 0, 40, 32) (Color.DarkSlateGray)
+        drawText spriteBatch (fontAsset, sprintf "%i" fps, (position + 5, 3), TopLeft, 0.4) Color.White
 
     override __.LoadContent() = 
         spriteBatch <- new SpriteBatch(this.GraphicsDevice)
