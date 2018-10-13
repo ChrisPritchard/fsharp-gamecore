@@ -9,21 +9,13 @@ open Microsoft.Xna.Framework.Input;
 open Microsoft.Xna.Framework.Audio
 open Microsoft.Xna.Framework.Media
 
-/// <summary>
-/// Config settings for the game to run. Things like assets to load, 
-/// the resolution, whether or not to clear each frame and with what colour etc
-/// </summary>
-type GameConfig = {
-    clearColour: Color option
-    resolution: Resolution
-    assetsToLoad: Loadable list
-    fpsFont: string option
-}
+type internal Content =
+| TextureAsset of Texture2D
+| TextureMapAsset of Texture2D * Map<string, Rectangle>
+| FontAsset of SpriteFont
+| SoundAsset of SoundEffect
+| MusicAsset of Song
 
-/// <summary>
-/// The core game loop. Provided with a model, asset information and transition methods (like updateModel or getView) this loop powers the game.
-/// Important: when instantiating a game loop, it is important to do so with 'use' instead of 'let', as the game loop needs to be disposed properly.
-/// </summary>
 type internal GameLoop<'TModel> (config, updateModel, getView)
     as this = 
     inherit Game()

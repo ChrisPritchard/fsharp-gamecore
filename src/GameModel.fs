@@ -1,10 +1,14 @@
 module GameCore.GameModel
 
 open Microsoft.Xna.Framework
-open Microsoft.Xna.Framework.Graphics
-open Microsoft.Xna.Framework.Audio
-open Microsoft.Xna.Framework.Media
 open Microsoft.Xna.Framework.Input
+
+/// <summary>
+/// Fullscreen or windowed, at a given width and height
+/// </summary>
+type Resolution =
+| Windowed of int * int
+| FullScreen of int * int
 
 /// <summary>
 /// Definitions of assets to load on start, e.g. named texture files.
@@ -18,6 +22,17 @@ type Loadable =
 | Font of key:string * path:string
 | Sound of key:string * path:string
 | Song of key:string * path:string
+
+/// <summary>
+/// Config settings for the game to run. Things like assets to load, 
+/// the resolution, whether or not to clear each frame and with what colour etc
+/// </summary>
+type GameConfig = {
+    clearColour: Color option
+    resolution: Resolution
+    assetsToLoad: Loadable list
+    fpsFont: string option
+}
 
 /// <summary>
 /// Where a given piece of text should be drawn from, given its x,y
@@ -34,13 +49,6 @@ type ViewArtifact =
 | Text of assetKey:string * text:string * position:(int*int) * origin:Origin * scale:float * color:Color
 | SoundEffect of string
 | Music of string
-
-/// <summary>
-/// Fullscreen or windowed, at a given width and height
-/// </summary>
-type Resolution =
-| Windowed of int * int
-| FullScreen of int * int
 
 /// <summary>
 /// The current state of the game. Basically elapsed time and the state of the keyboard or mouse
@@ -65,10 +73,3 @@ let isAnyPressed keyList runState = keyList |> List.exists (fun k -> isPressed k
 let isMousePressed (left, right) runState = 
     let (ml, mr) = runState.mouse.pressed
     ((ml && left) || (mr && right))
-
-type internal Content =
-| TextureAsset of Texture2D
-| TextureMapAsset of Texture2D * Map<string, Rectangle>
-| FontAsset of SpriteFont
-| SoundAsset of SoundEffect
-| MusicAsset of Song
