@@ -6,7 +6,11 @@ This is for **2D games only**, i.e. those that use 2d textures like sprites and 
 
 Designed so that all XNA bits and necessary mutable fields are wrapped inside the internal `GameLoop` class, allowing a parent application to remain purely functional and almost platform agnostic. Entry point is the `runGame` method from the GameRunner module.
 
-Available on Nuget at: <https://www.nuget.org/packages/fsharp-gamecore/0.0.3>
+Available on Nuget at: <https://www.nuget.org/packages/fsharp-gamecore/0.0.4>
+
+## Updates for 0.0.4 vs 0.0.3
+
+I've reworked so the meta config of the game is buried in a record type, and so the entry to the game is via a functional method (no more use of the ugly class).
 
 ## Samples
 
