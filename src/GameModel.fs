@@ -28,9 +28,23 @@ type Loadable =
 /// the resolution, whether or not to clear each frame and with what colour etc
 /// </summary>
 type GameConfig = {
+    /// <summary>
+    /// If specified, each draw will be blanked by the colour specified
+    /// </summary>
     clearColour: Color option
+    /// <summary>
+    /// Resolution to render the game (in future this will be changable post init)
+    /// </summary>
     resolution: Resolution
+    /// <summary>
+    /// All assets (like images, sounds etc) that the game will use
+    /// </summary>
     assetsToLoad: Loadable list
+    /// <summary>
+    /// Whether to render an FPS counter in the top right. 
+    /// The string is the asset key of a font asset, specified 
+    /// under assetsToLoad (it will not work without a font loaded)
+    /// </summary>
     fpsFont: string option
 }
 
