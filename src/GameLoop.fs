@@ -1,6 +1,8 @@
 ﻿module GameCore.GameLoop
 
 open GameCore.GameModel
+open GameCore.Helpers
+
 open System
 open System.IO
 open Microsoft.Xna.Framework
@@ -8,16 +10,6 @@ open Microsoft.Xna.Framework.Graphics;
 open Microsoft.Xna.Framework.Input;
 open Microsoft.Xna.Framework.Audio
 open Microsoft.Xna.Framework.Media
-open Microsoft.Xna.Framework
-open Microsoft.Xna.Framework
-open Microsoft.Xna.Framework
-
-type internal Content =
-| TextureAsset of Texture2D
-| TextureMapAsset of Texture2D * Map<string, Rectangle>
-| FontAsset of SpriteFont
-| SoundAsset of SoundEffect
-| MusicAsset of Song
 
 type internal GameLoop<'TModel> (config, updateModel, getView)
     as this = 
@@ -49,24 +41,6 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
         | Windowed (w,h) -> 
             graphics.PreferredBackBufferWidth <- w
             graphics.PreferredBackBufferHeight <- h
-
-    let updateKeyboardInfo (keyboard: KeyboardState) (existing: KeyboardInfo) =
-        let pressed = keyboard.GetPressedKeys() |> Set.ofArray
-        {
-            pressed = pressed |> Set.toList
-            keysDown = Set.difference pressed (existing.pressed |> Set.ofList) |> Set.toList
-            keysUp = Set.difference (existing.pressed |> Set.ofList) pressed |> Set.toList
-        }
-
-    let getMouseInfo (mouse: MouseState) =
-        {
-            position = mouse.X, mouse.Y
-            pressed = mouse.LeftButton = ButtonState.Pressed, mouse.RightButton = ButtonState.Pressed
-        }
-
-    let asVector2 (x,y) = new Vector2(float32 x, float32 y)
-    let asRectangle (x,y,width,height) = 
-        new Rectangle (x,y,width,height)
 
     let drawColour (spriteBatch: SpriteBatch) destRect colour = 
         spriteBatch.Draw(
