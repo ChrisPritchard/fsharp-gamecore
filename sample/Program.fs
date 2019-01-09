@@ -9,7 +9,7 @@ let main _ =
     
     let (width, height) = 640, 480
 
-    let updateModel runState model =
+    let advanceModel runState model =
         match model with
         // The model will start as none, so this is where the initial model is specified
         | None -> Some 0
@@ -40,5 +40,11 @@ let main _ =
         fpsFont = Some "connection"
     }
 
-    runGame config updateModel getView
+    // this starts the game. a simplified approach is below
+    runGame config advanceModel getView
+
+    // if you don't need an fps counter, or care about the clear colour, then the above could be:
+    // let assets = [ Font ("connection", "./connection") ]
+    // runWindowedGame (width, height) assets advanceModel getView
+
     0
