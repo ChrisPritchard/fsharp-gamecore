@@ -64,7 +64,7 @@ let main _ =
     runGame config advanceModel getView
 
     // if you don't need an fps counter, or care about the clear colour, then the above could be:
-    // let assets = [ Font ("connection", "./connection") ]
+    // let assets = [ Font ("connection", "./connection"); Texture ("sample", "image.png") ]
     // runWindowedGame (width, height) assets advanceModel getView
 
     0
