@@ -3,6 +3,7 @@ module GameCore.Helpers
 open Microsoft.Xna.Framework
 open Microsoft.Xna.Framework.Input
 open GameModel
+open System.Text
 
 let internal asVector2 (x, y) = new Vector2(float32 x, float32 y)
     
@@ -26,16 +27,25 @@ let internal getMouseInfo (mouse: MouseState) =
         pressed = mouse.LeftButton = ButtonState.Pressed, mouse.RightButton = ButtonState.Pressed
     }
 
+let internal stringBuilder lines =
+    let rec addLines (sb: StringBuilder) =
+        function
+        | [] -> sb
+        | [s: string] -> sb.Append s
+        | (s: string)::rest -> addLines (sb.AppendLine s) rest
+    addLines (new StringBuilder ()) lines
+
 let internal getScaleAndPosition (measuredSize: Vector2) destRect align =
-    let (x, y, w, h) = asFloatRect destRect
-    let scale = min (w / measuredSize.X) (h / measuredSize.Y)
-    let (fw, fh) = measuredSize.X * scale, measuredSize.Y * scale
+    let mx, my = float32 measuredSize.X, float32 measuredSize.Y
+    let x, y, w, h = asFloatRect destRect
+    let scale = min (w / mx) (h / my)
+    let fw, fh = mx * scale, my * scale
 
     let fx, fy =
         match align with
         | TopLeft -> x, y
         | Left -> x, y + (h - fh) / 2.f
-        | Centre -> x + (w - fw) / 2.f, y + (h - fh) / 2.f
+        | Centre -> x + (w - fw) / 2.f, y + ((h - fh) / 2.f)
         | Right -> x + (w - fw), y + (h - fh) / 2.f
         | BottomRight -> x + (w - fh), y + (h - fh)
     

@@ -10,7 +10,6 @@ open Microsoft.Xna.Framework.Graphics;
 open Microsoft.Xna.Framework.Input;
 open Microsoft.Xna.Framework.Audio
 open Microsoft.Xna.Framework.Media
-open System.Text
 
 type internal GameLoop<'TModel> (config, updateModel, getView)
     as this = 
@@ -91,7 +90,7 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
             | None -> sprintf "Missing asset: %s" assetKey |> failwith
             | _-> sprintf "Asset was not a SpriteFont: %s" assetKey |> failwith
         
-        let sb = lines |> List.fold (fun (sb: StringBuilder) -> sb.AppendLine) (new StringBuilder ())
+        let sb = stringBuilder lines 
         let rawSize = font.MeasureString sb
         let scale, fx, fy = getScaleAndPosition rawSize destRect align
 
