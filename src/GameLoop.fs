@@ -10,6 +10,7 @@ open Microsoft.Xna.Framework.Graphics;
 open Microsoft.Xna.Framework.Input;
 open Microsoft.Xna.Framework.Audio
 open Microsoft.Xna.Framework.Media
+open System.Text
 
 type internal GameLoop<'TModel> (config, updateModel, getView)
     as this = 
@@ -76,21 +77,26 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
             | None -> sprintf "Missing asset: %s" assetKey |> failwith
             | _-> sprintf "Asset was not a SpriteFont: %s" assetKey |> failwith
         
-        let (x, y, w, h) = destRect
         let rawSize = font.MeasureString text
-        let scale = min (float32 w / rawSize.X) (float32 h / rawSize.Y)
-        let (fw, fh) = rawSize.X * scale, rawSize.Y * scale
-
-        let fx, fy =
-            match align with
-            | TopLeft -> float32 x, float32 y
-            | Left -> float32 x, float32 y + (float32 h - fh) / 2.f
-            | Centre -> float32 x + (float32 w - fw) / 2.f, float32 y + (float32 h - fh) / 2.f
-            | Right -> float32 x + (float32 w - fw), float32 y + (float32 h - fh) / 2.f
-            | BottomRight -> float32 x + (float32 w - fh), float32 y + (float32 h - fh)
+        let scale, fx, fy = getScaleAndPosition rawSize destRect align
 
         spriteBatch.DrawString(
             font, text, new Vector2 (fx, fy), colour, 
+            0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.5f)
+
+    let drawParagraph (spriteBatch: SpriteBatch) assetKey (lines: string list) destRect align colour =
+        let font =
+            match Map.tryFind assetKey assets with
+            | Some (FontAsset f) -> f
+            | None -> sprintf "Missing asset: %s" assetKey |> failwith
+            | _-> sprintf "Asset was not a SpriteFont: %s" assetKey |> failwith
+        
+        let sb = lines |> List.fold (fun (sb: StringBuilder) -> sb.AppendLine) (new StringBuilder ())
+        let rawSize = font.MeasureString sb
+        let scale, fx, fy = getScaleAndPosition rawSize destRect align
+
+        spriteBatch.DrawString(
+            font, sb, new Vector2 (fx, fy), colour, 
             0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.5f)
 
     let playSound assetKey =
@@ -195,6 +201,7 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
                 | Image (a, d, c) -> drawImage spriteBatch a d c
                 | MappedImage (a, m, d, c) -> drawMappedImage spriteBatch a m d c
                 | Text (a, t, d, l, c) -> drawText spriteBatch a t d l c
+                | Paragraph (a, t, d, l, c) -> drawParagraph spriteBatch a t d l c
                 | SoundEffect s -> playSound s
                 | Music s -> playMusic s)
         

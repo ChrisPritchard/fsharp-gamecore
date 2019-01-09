@@ -25,3 +25,18 @@ let internal getMouseInfo (mouse: MouseState) =
         position = mouse.X, mouse.Y
         pressed = mouse.LeftButton = ButtonState.Pressed, mouse.RightButton = ButtonState.Pressed
     }
+
+let internal getScaleAndPosition (measuredSize: Vector2) destRect align =
+    let (x, y, w, h) = asFloatRect destRect
+    let scale = min (w / measuredSize.X) (h / measuredSize.Y)
+    let (fw, fh) = measuredSize.X * scale, measuredSize.Y * scale
+
+    let fx, fy =
+        match align with
+        | TopLeft -> x, y
+        | Left -> x, y + (h - fh) / 2.f
+        | Centre -> x + (w - fw) / 2.f, y + (h - fh) / 2.f
+        | Right -> x + (w - fw), y + (h - fh) / 2.f
+        | BottomRight -> x + (w - fh), y + (h - fh)
+    
+    scale, fx, fy

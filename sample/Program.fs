@@ -22,14 +22,27 @@ let main _ =
     let getView runState model = 
         let (centrex, centrey) = width/2, height/2
         [
+            // setting a red square in the middle of the screen
             yield Colour ((centrex - 100, centrey - 50, 200, 80), Color.Red)
-            // just rendering the model (an ever increasing int) centre screen
+
+            // rendering the model (an ever increasing int) centre screen
             let textRect = centrex - 80, centrey - 40, 160, 60
             yield Text ("connection", sprintf "%i" model, textRect, Centre, Color.White)
+
+            // rendering some multiline text in the top left of the screen
+            let sampleParagraph = [
+                "this"
+                "is"
+                "some"
+                "sample"
+                "text"
+            ]
+            let paragraphRect = 20, 20, 100, 300
+            yield Paragraph ("connection", sampleParagraph, paragraphRect, TopLeft, Color.White)
         ]
     
     let config = {
-        clearColour = None
+        clearColour = Some Color.Black
         resolution = Windowed (width, height)
         // a list of GameCore.Model.Loadable values
         assetsToLoad = [

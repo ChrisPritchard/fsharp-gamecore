@@ -20,7 +20,7 @@ This makes text drawing more accurate and easy, while also aligning the specific
 
 0.0.5 also includes:
 
-- the ability to draw multiline text via TextArea (as compared to text, and which takes a string list of lines)
+- the ability to draw multiline text via Paragraph (as compared to text, and which takes a string list of lines)
 - a simplified game runner 'runWindowedGame' that takes a window size and asset list instead of a config object, and defaults to aliceBlue for clear colour and no fpsCounter
 
 ## Samples
