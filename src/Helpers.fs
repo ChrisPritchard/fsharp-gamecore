@@ -4,6 +4,7 @@ open Microsoft.Xna.Framework
 open Microsoft.Xna.Framework.Input
 open GameModel
 open System.Text
+open Microsoft.Xna.Framework.Graphics
 
 let internal asVector2 (x, y) = new Vector2(float32 x, float32 y)
     
@@ -27,6 +28,18 @@ let internal getMouseInfo (mouse: MouseState) =
         pressed = mouse.LeftButton = ButtonState.Pressed, mouse.RightButton = ButtonState.Pressed
     }
 
+let internal lineSpacingRatio = 1.f/4.f
+
+let internal measureText (font: SpriteFont) (text: string) =
+    let mutable asMeasured = font.MeasureString text
+    let lineGap = float32 font.LineSpacing * lineSpacingRatio
+    asMeasured.X, asMeasured.Y - lineGap
+
+let internal measureParagraph (font: SpriteFont) (sb: StringBuilder) =
+    let mutable asMeasured = font.MeasureString sb
+    let lineGap = float32 font.LineSpacing * lineSpacingRatio
+    asMeasured.X, asMeasured.Y - lineGap
+
 let internal stringBuilder lines =
     let rec addLines (sb: StringBuilder) =
         function
@@ -35,8 +48,7 @@ let internal stringBuilder lines =
         | (s: string)::rest -> addLines (sb.AppendLine s) rest
     addLines (new StringBuilder ()) lines
 
-let internal getScaleAndPosition (measuredSize: Vector2) destRect align =
-    let mx, my = float32 measuredSize.X, float32 measuredSize.Y
+let internal getScaleAndPosition (mx, my) destRect align =
     let x, y, w, h = asFloatRect destRect
     let scale = min (w / mx) (h / my)
     let fw, fh = mx * scale, my * scale

@@ -76,7 +76,7 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
             | None -> sprintf "Missing asset: %s" assetKey |> failwith
             | _-> sprintf "Asset was not a SpriteFont: %s" assetKey |> failwith
         
-        let rawSize = font.MeasureString text
+        let rawSize = measureText font text
         let scale, fx, fy = getScaleAndPosition rawSize destRect align
 
         spriteBatch.DrawString(
@@ -91,7 +91,7 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
             | _-> sprintf "Asset was not a SpriteFont: %s" assetKey |> failwith
         
         let sb = stringBuilder lines 
-        let rawSize = font.MeasureString sb
+        let rawSize = measureParagraph font sb
         let scale, fx, fy = getScaleAndPosition rawSize destRect align
 
         spriteBatch.DrawString(

@@ -24,11 +24,11 @@ let main _ =
         let (centrex, centrey) = width/2, height/2
         [
             // setting a red square in the middle of the screen
-            yield Colour ((centrex - 100, centrey - 40, 200, 158), Color.Red)
+            yield Colour ((centrex - 100, centrey - 40, 200, 80), Color.Red)
 
             // rendering the model (an ever increasing int) centre screen
-            let textRect = centrex - 100, centrey - 40, 400, 158
-            yield Paragraph ("connection", ["0";"0"], textRect, TopLeft, Color.White)
+            let textRect = centrex - 80, centrey - 30, 160, 60
+            yield Text ("connection", sprintf "%i" model, textRect, Centre, Color.White)
 
             // rendering some multiline text in the top left of the screen
             let sampleParagraph = [
