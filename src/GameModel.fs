@@ -16,10 +16,16 @@ type Resolution =
 /// except for fonts, which MUST be relative paths (without extensions) to spritefonts built using the content pipeline.
 /// This is because fonts cannot be direct loaded, and must be processed via the pipeline.
 type Loadable =
+/// key (how it is referenced) and path (full relative path to file)
 | Texture of key:string * path:string
+/// key (how it is referenced), texturePath (full relative path to file), 
+/// keyPath (full relativePath to csv that maps keys to dims in image)
 | TextureMap of key:string * texturePath:string * keyPath:string
+/// key (how it is referenced) and path (full relative path (without extension) to spriteFont)
 | Font of key:string * path:string
+/// key (how it is referenced) and path (full relative path to file)
 | Sound of key:string * path:string
+/// key (how it is referenced) and path (full relative path to file)
 | Song of key:string * path:string
 
 /// Config settings for the game to run. Things like assets to load, 
@@ -42,12 +48,19 @@ type TextAlign = TopLeft | Left | Centre | Right | BottomRight
 
 /// Definitions of things to be drawn (or played) in the main draw method
 type ViewArtifact = 
-| Colour of destRect: (int*int*int*int) * color:Color
-| Image of assetKey:string * destRect: (int*int*int*int) * color:Color
-| MappedImage of assetKey:string * mapKey:string * destRect: (int*int*int*int) * color:Color
-| Text of assetKey:string * text:string * destRect: (int*int*int*int) * textAlign: TextAlign * color:Color
-| Paragraph of assetKey:string * lines:string list * destRect: (int*int*int*int) * textAlign: TextAlign * color:Color
+/// destRect (position on screen) and colour
+| Colour of destRect: (int*int*int*int) * colour:Color
+/// assetKey (loaded image to use), destRect (position on screen) and colour (effectively shading)
+| Image of assetKey:string * destRect: (int*int*int*int) * colour:Color
+/// assetKey (loaded image to use), mapKey (which portion of the image to use), destRect (position on screen) and colour (effectively shading)
+| MappedImage of assetKey:string * mapKey:string * destRect: (int*int*int*int) * colour:Color
+/// assetKey (loaded font to use), destRect (position on screen), textAlign (position in rect) and colour
+| Text of assetKey:string * text:string * destRect: (int*int*int*int) * textAlign: TextAlign * colour:Color
+/// assetKey (loaded font to use), destRect (position on screen), textAlign (position in rect) and colour
+| Paragraph of assetKey:string * lines:string list * destRect: (int*int*int*int) * textAlign: TextAlign * colour:Color
+/// assetKey of loaded sound to use
 | SoundEffect of string
+/// assetKey of loaded song to use
 | Music of string
 
 /// The current state of the game. Basically elapsed time and the state of the keyboard or mouse
