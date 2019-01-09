@@ -8,6 +8,9 @@ open Microsoft.Xna.Framework.Graphics;
 open Microsoft.Xna.Framework.Input;
 open Microsoft.Xna.Framework.Audio
 open Microsoft.Xna.Framework.Media
+open Microsoft.Xna.Framework
+open Microsoft.Xna.Framework
+open Microsoft.Xna.Framework
 
 type internal Content =
 | TextureAsset of Texture2D
@@ -71,7 +74,7 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
             Unchecked.defaultof<Nullable<Rectangle>>, colour, 0.0f, Vector2.Zero, 
             SpriteEffects.None, 0.0f)
     
-    let drawImage (spriteBatch: SpriteBatch) (assetKey, destRect) colour = 
+    let drawImage (spriteBatch: SpriteBatch) assetKey destRect colour = 
         match Map.tryFind assetKey assets with
         | Some (TextureAsset texture) -> 
             spriteBatch.Draw(
@@ -81,7 +84,7 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
         | None -> sprintf "Missing asset: %s" assetKey |> failwith
         | _-> sprintf "Asset was not a Texture2D: %s" assetKey |> failwith
             
-    let drawMappedImage (spriteBatch: SpriteBatch) (assetKey, mapKey, destRect) colour = 
+    let drawMappedImage (spriteBatch: SpriteBatch) assetKey mapKey destRect colour = 
         match Map.tryFind assetKey assets with
         | Some (TextureMapAsset (texture, map)) when map.ContainsKey mapKey -> 
             spriteBatch.Draw(
@@ -92,21 +95,20 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
         | None -> sprintf "Missing asset: %s" assetKey |> failwith
         | _-> sprintf "Asset was not a Texture2D: %s" assetKey |> failwith
     
-    let drawText (spriteBatch: SpriteBatch) (assetKey, (text:string), position, origin, scale) colour =
+    let drawText (spriteBatch: SpriteBatch) assetKey (text: string) destRect colour =
         let font =
             match Map.tryFind assetKey assets with
             | Some (FontAsset f) -> f
             | None -> sprintf "Missing asset: %s" assetKey |> failwith
             | _-> sprintf "Asset was not a SpriteFont: %s" assetKey |> failwith
-        let position =
-            match origin with
-            | TopLeft -> asVector2 position
-            | Centre -> 
-                let size = Vector2.Divide (font.MeasureString(text), 2.f / float32 scale)
-                Vector2.Subtract (asVector2 position, size)
+        
+        let (x, y, w, h) = destRect
+        let rawSize = font.MeasureString text
+        let scale = min (float32 w / rawSize.X) (float32 h / rawSize.Y)
+
         spriteBatch.DrawString(
-            font, text, position, colour, 
-            0.0f, Vector2.Zero, float32 scale, SpriteEffects.None, 0.5f)
+            font, text, new Vector2 (float32 x, float32 y), colour, 
+            0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.5f)
 
     let playSound assetKey =
         let sound = 
@@ -139,7 +141,8 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
         
         let position = graphics.PreferredBackBufferWidth - 40
         drawColour spriteBatch (position, 0, 40, 32) (Color.DarkSlateGray)
-        drawText spriteBatch (fontAsset, sprintf "%i" fps, (position + 5, 3), TopLeft, 0.4) Color.White
+        let textRect = (position + 5, 3, 30, 26)
+        drawText spriteBatch fontAsset (sprintf "%i" fps) textRect Color.White
 
     override __.LoadContent() = 
         spriteBatch <- new SpriteBatch(this.GraphicsDevice)
@@ -206,9 +209,9 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
             |> Seq.iter (
                 function 
                 | Colour (d, c) -> drawColour spriteBatch d c
-                | Image (a,d,c) -> drawImage spriteBatch (a,d) c
-                | MappedImage (a,m,d,c) -> drawMappedImage spriteBatch (a,m,d) c
-                | Text (a,t,p,o,s,c) -> drawText spriteBatch (a,t,p,o,s) c
+                | Image (a, d, c) -> drawImage spriteBatch a d c
+                | MappedImage (a, m, d, c) -> drawMappedImage spriteBatch a m d c
+                | Text (a,t,d,c) -> drawText spriteBatch a t d c
                 | SoundEffect s -> playSound s
                 | Music s -> playMusic s)
         

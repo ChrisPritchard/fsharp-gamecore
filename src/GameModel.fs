@@ -49,18 +49,13 @@ type GameConfig = {
 }
 
 /// <summary>
-/// Where a given piece of text should be drawn from, given its x,y
-/// </summary>
-type Origin = | TopLeft | Centre
-
-/// <summary>
 /// Definitions of things to be drawn (or played) in the main draw method
 /// </summary>
 type ViewArtifact = 
 | Colour of destRect: (int*int*int*int) * color:Color
 | Image of assetKey:string * destRect: (int*int*int*int) * color:Color
 | MappedImage of assetKey:string * mapKey:string * destRect: (int*int*int*int) * color:Color
-| Text of assetKey:string * text:string * position:(int*int) * origin:Origin * scale:float * color:Color
+| Text of assetKey:string * text:string * destRect: (int*int*int*int) * color:Color
 | SoundEffect of string
 | Music of string
 

@@ -22,9 +22,10 @@ let main _ =
     let getView runState model = 
         let (centrex, centrey) = width/2, height/2
         [
-            Colour ((centrex - 100, centrey - 50, 200, 80), Color.Red)
+            yield Colour ((centrex - 100, centrey - 50, 200, 80), Color.Red)
             // just rendering the model (an ever increasing int) centre screen
-            Text ("connection", sprintf "%i" model, (centrex, centrey), Centre, 1., Color.White)
+            let textRect = centrex - 80, centrey - 40, 160, 60
+            yield Text ("connection", sprintf "%i" model, textRect, Color.White)
         ]
     
     let config = {
