@@ -49,13 +49,18 @@ type GameConfig = {
 }
 
 /// <summary>
+/// The alignment of text rendered
+/// </summary>
+type TextAlign = TopLeft | Left | Centre | Right | BottomRight
+
+/// <summary>
 /// Definitions of things to be drawn (or played) in the main draw method
 /// </summary>
 type ViewArtifact = 
 | Colour of destRect: (int*int*int*int) * color:Color
 | Image of assetKey:string * destRect: (int*int*int*int) * color:Color
 | MappedImage of assetKey:string * mapKey:string * destRect: (int*int*int*int) * color:Color
-| Text of assetKey:string * text:string * destRect: (int*int*int*int) * color:Color
+| Text of assetKey:string * text:string * destRect: (int*int*int*int) * textAlign: TextAlign * color:Color
 | SoundEffect of string
 | Music of string
 

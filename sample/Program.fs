@@ -25,7 +25,7 @@ let main _ =
             yield Colour ((centrex - 100, centrey - 50, 200, 80), Color.Red)
             // just rendering the model (an ever increasing int) centre screen
             let textRect = centrex - 80, centrey - 40, 160, 60
-            yield Text ("connection", sprintf "%i" model, textRect, Color.White)
+            yield Text ("connection", sprintf "%i" model, textRect, Centre, Color.White)
         ]
     
     let config = {
