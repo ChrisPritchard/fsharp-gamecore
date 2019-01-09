@@ -16,9 +16,12 @@ I've reworked so the meta config of the game is buried in a record type, and so 
 
 The way text is drawn has changed in a breaking way, but for the better: instead of specifying position, origin and scale, with the last being basically trial and error based on how the font was specified, you instead specify a destination rect and a alignment within that rect. The scale is dynamically calculated to ensure the text can fit inside that rect, and then adjustments are made based on alignment. 
 
-This makes text drawing more accurate and easy, while also aligning the specification of text view artifacts with the way images and colours are specified (which also just take rects).
+This makes text drawing more accurate and easy, while also aligning the specification of text view artifacts with the way images and colours are specified (which also just take rects). This also fixes a bug where drawing centre-aligned text at lower scales would not be centred properly.
 
-This also fixes a bug where drawing centre-aligned text at lower scales would not be centred properly.
+0.0.5 also includes:
+
+- the ability to draw multiline text via TextArea (as compared to text, and which takes a string list of lines)
+- a simplified game runner 'runWindowedGame' that takes a window size and asset list instead of a config object, and defaults to aliceBlue for clear colour and no fpsCounter
 
 ## Samples
 
