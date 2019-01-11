@@ -6,7 +6,7 @@ This is for **2D games only**, i.e. those that use 2d textures like sprites and 
 
 Designed so that all XNA bits and necessary mutable fields are wrapped inside the internal `GameLoop` class, allowing a parent application to remain purely functional and almost platform agnostic. Entry point is the `runGame` method from the GameRunner module.
 
-Available on Nuget at: <https://www.nuget.org/packages/fsharp-gamecore/0.0.5>
+Available on Nuget at: <https://www.nuget.org/packages/fsharp-gamecore/0.0.6>
 
 ## Updates for 0.0.4 vs 0.0.3
 
@@ -22,6 +22,12 @@ This makes text drawing more accurate and easy, while also aligning the specific
 
 - the ability to draw multiline text via Paragraph (as compared to text, and which takes a string list of lines)
 - a simplified game runner 'runWindowedGame' that takes a window size and asset list instead of a config object, and defaults to aliceBlue for clear colour and no fpsCounter
+
+## Updates for 0.0.6
+
+The previous iteration with its destRects didn't work out: the size of the text became constrained, but unpredictable in practice. 0.0.6 has changed this back to the old signature, but with font height in pixels instead of scale. This works much better.
+
+Another, minor change is that the origins for text drawing have been expanded to centre plus all eight points of the compass. This is where the text will be drawn from relative to its given position, and an example of this is in the sample project.
 
 ## Samples
 
