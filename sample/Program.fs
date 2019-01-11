@@ -27,8 +27,7 @@ let main _ =
             yield Colour ((centrex - 100, centrey - 40, 200, 80), Color.Red)
 
             // rendering the model (an ever increasing int) centre screen
-            let textRect = centrex - 80, centrey - 30, 160, 60
-            yield Text ("connection", sprintf "%i" model, textRect, Centre, Color.White)
+            yield Text ("connection", sprintf "%i" model, (centrex, centrey), 40, Centre, Color.White)
 
             // rendering some multiline text in the top left of the screen
             let sampleParagraph = [
@@ -38,8 +37,24 @@ let main _ =
                 "sample"
                 "text"
             ]
-            let paragraphRect = 20, 20, 100, 300
-            yield Paragraph ("connection", sampleParagraph, paragraphRect, TopLeft, Color.White)
+            yield Paragraph ("connection", sampleParagraph, (20, 20), 20, TopLeft, Color.White)
+
+            // rendering text in all different alignments
+            let px, py = 100, 300
+            yield! [
+                -50,-50,"TL",TopLeft
+                -50,0,"L",Left
+                -50,50,"BL",BottomLeft
+                0,-50,"T",Top
+                0,0,"C",Centre
+                0,50,"B",Bottom
+                50,-50,"TR",TopRight
+                50,0,"R",Right
+                50,50,"BR",BottomRight
+            ] |> List.collect (fun (dx, dy, text, origin) -> [
+                yield Text ("connection", text, (px + dx, py + dy), 18, origin, Color.White)
+                yield Colour ((px + dx, py + dy, 2, 2), Color.Red)
+            ])
 
             // rendering a moving image at the bottom of the screen
             let x = centrex + (int runState.elapsed / 10 % (centrex - 50))

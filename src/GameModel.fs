@@ -43,8 +43,11 @@ type GameConfig = {
     fpsFont: string option
 }
 
-/// The alignment of text rendered
-type TextAlign = TopLeft | Left | Centre | Right | BottomRight
+/// Where the position is relative to the text drawn
+and Origin = 
+    | TopLeft | Left | BottomLeft 
+    | Top | Centre | Bottom
+    | TopRight | Right | BottomRight
 
 /// Definitions of things to be drawn (or played) in the main draw method
 type ViewArtifact = 
@@ -54,10 +57,10 @@ type ViewArtifact =
 | Image of assetKey:string * destRect: (int*int*int*int) * colour:Color
 /// assetKey (loaded image to use), mapKey (which portion of the image to use), destRect (position on screen) and colour (effectively shading)
 | MappedImage of assetKey:string * mapKey:string * destRect: (int*int*int*int) * colour:Color
-/// assetKey (loaded font to use), destRect (position on screen), textAlign (position in rect) and colour
-| Text of assetKey:string * text:string * destRect: (int*int*int*int) * textAlign: TextAlign * colour:Color
-/// assetKey (loaded font to use), destRect (position on screen), textAlign (position in rect) and colour
-| Paragraph of assetKey:string * lines:string list * destRect: (int*int*int*int) * textAlign: TextAlign * colour:Color
+/// assetKey (loaded font to use), position on screen, fontSize (in pixels), origin of position vs text and colour
+| Text of assetKey:string * text:string * position: (int*int) * fontSize:int * origin:Origin * colour:Color
+/// assetKey (loaded font to use), position on screen, fontSize (in pixels), origin of position vs text and colour
+| Paragraph of assetKey:string * lines:string list * position: (int*int) * fontSize:int * origin:Origin * colour:Color
 /// assetKey of loaded sound to use
 | SoundEffect of string
 /// assetKey of loaded song to use

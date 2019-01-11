@@ -69,7 +69,7 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
         | None -> sprintf "Missing asset: %s" assetKey |> failwith
         | _-> sprintf "Asset was not a Texture2D: %s" assetKey |> failwith
     
-    let drawText (spriteBatch: SpriteBatch) assetKey (text: string) destRect align colour =
+    let drawText (spriteBatch: SpriteBatch) assetKey (text: string) position size origin colour =
         let font =
             match Map.tryFind assetKey assets with
             | Some (FontAsset f) -> f
@@ -77,13 +77,13 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
             | _-> sprintf "Asset was not a SpriteFont: %s" assetKey |> failwith
         
         let rawSize = measureText font text
-        let scale, fx, fy = getScaleAndPosition rawSize destRect align
+        let scale, fx, fy = getScaleAndPosition rawSize 1 position size origin
 
         spriteBatch.DrawString(
             font, text, new Vector2 (fx, fy), colour, 
             0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.5f)
 
-    let drawParagraph (spriteBatch: SpriteBatch) assetKey (lines: string list) destRect align colour =
+    let drawParagraph (spriteBatch: SpriteBatch) assetKey (lines: string list) position size origin colour =
         let font =
             match Map.tryFind assetKey assets with
             | Some (FontAsset f) -> f
@@ -92,7 +92,7 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
         
         let sb = stringBuilder lines 
         let rawSize = measureParagraph font sb
-        let scale, fx, fy = getScaleAndPosition rawSize destRect align
+        let scale, fx, fy = getScaleAndPosition rawSize lines.Length position size origin
 
         spriteBatch.DrawString(
             font, sb, new Vector2 (fx, fy), colour, 
@@ -129,8 +129,7 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
         
         let position = graphics.PreferredBackBufferWidth - 40
         drawColour spriteBatch (position, 0, 40, 32) (Color.DarkSlateGray)
-        let textRect = (position + 5, 3, 30, 26)
-        drawText spriteBatch fontAsset (sprintf "%i" fps) textRect Centre Color.White
+        drawText spriteBatch fontAsset (sprintf "%i" fps) (position + 20, 16) 18 Centre Color.White
 
     override __.LoadContent() = 
         spriteBatch <- new SpriteBatch(this.GraphicsDevice)
@@ -199,8 +198,8 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
                 | Colour (d, c) -> drawColour spriteBatch d c
                 | Image (a, d, c) -> drawImage spriteBatch a d c
                 | MappedImage (a, m, d, c) -> drawMappedImage spriteBatch a m d c
-                | Text (a, t, d, l, c) -> drawText spriteBatch a t d l c
-                | Paragraph (a, t, d, l, c) -> drawParagraph spriteBatch a t d l c
+                | Text (a, t, p, s, o, c) -> drawText spriteBatch a t p s o c
+                | Paragraph (a, t, p, s, o, c) -> drawParagraph spriteBatch a t p s o c
                 | SoundEffect s -> playSound s
                 | Music s -> playMusic s)
         

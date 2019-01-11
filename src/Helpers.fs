@@ -48,17 +48,27 @@ let internal stringBuilder lines =
         | (s: string)::rest -> addLines (sb.AppendLine s) rest
     addLines (new StringBuilder ()) lines
 
-let internal getScaleAndPosition (mx, my) destRect align =
-    let x, y, w, h = asFloatRect destRect
-    let scale = min (w / mx) (h / my)
-    let fw, fh = mx * scale, my * scale
+let internal getScaleAndPosition (mx, my) lineCount (x, y) fontSize origin =
+    let h = 
+        if lineCount = 1 then float32 fontSize 
+        else 
+            float32 fontSize + 
+            ((float32 fontSize / 3.f) * 4.f) * float32 (lineCount - 1)
 
+    let scale = h / my
+    let w = mx * scale
+
+    let x, y = float32 x, float32 y
     let fx, fy =
-        match align with
+        match origin with
         | TopLeft -> x, y
-        | Left -> x, y + (h - fh) / 2.f
-        | Centre -> x + (w - fw) / 2.f, y + ((h - fh) / 2.f)
-        | Right -> x + (w - fw), y + (h - fh) / 2.f
-        | BottomRight -> x + (w - fh), y + (h - fh)
+        | Left -> x, y - (h / 2.f)
+        | BottomLeft -> x, y - h
+        | Top -> x - (w / 2.f), y
+        | Centre -> x - (w / 2.f), y - (h / 2.f)
+        | Bottom -> x - (w / 2.f), y - h
+        | TopRight -> x - w, y
+        | Right -> x - w, y - (h / 2.f)
+        | BottomRight -> x - w, y - h
     
     scale, fx, fy
