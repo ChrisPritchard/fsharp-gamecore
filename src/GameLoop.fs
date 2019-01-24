@@ -11,7 +11,10 @@ open Microsoft.Xna.Framework.Input;
 open Microsoft.Xna.Framework.Audio
 open Microsoft.Xna.Framework.Media
 
-type internal GameLoop<'TModel> (config, updateModel, getView)
+/// Core game loop that implements XNA's game class
+/// Not intended for direct use (gameRunner provides hooks that run this)
+/// However can be overridden if finer control is needed
+type GameLoop<'TModel> (config, updateModel, getView)
     as this = 
     inherit Game()
 
@@ -130,6 +133,13 @@ type internal GameLoop<'TModel> (config, updateModel, getView)
         let position = graphics.PreferredBackBufferWidth - 40
         drawColour spriteBatch (position, 0, 40, 32) (Color.DarkSlateGray)
         drawText spriteBatch fontAsset (sprintf "%i" fps) (position + 20, 16) 18 Centre Color.White
+
+    /// Returns the current model, as of the last call to advanceModel
+    /// Only exposed when direct control is required, e.g. if a ui generator 
+    /// needs to be derived from the model outside of the advanceModel call
+    member __.CurrentModel
+        with get () =
+            currentModel
 
     override __.LoadContent() = 
         spriteBatch <- new SpriteBatch(this.GraphicsDevice)
