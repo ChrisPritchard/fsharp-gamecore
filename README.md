@@ -6,7 +6,7 @@ This is for **2D games only**, i.e. those that use 2d textures like sprites and 
 
 Designed so that all XNA bits and necessary mutable fields are wrapped inside the internal `GameLoop` class, allowing a parent application to remain purely functional and almost platform agnostic. Entry point is the `runGame` method from the GameRunner module.
 
-Available on Nuget at: <https://www.nuget.org/packages/fsharp-gamecore/0.0.6>
+Available on Nuget at: <https://www.nuget.org/packages/fsharp-gamecore/0.0.7>
 
 ## Updates for 0.0.4 vs 0.0.3
 
@@ -35,7 +35,7 @@ In this repository (or if you follow the repo url, if using Nuget), there is a s
 
 ## License
 
-Provided under **Unilicense** (except for the font, see below), so go nuts.
+Provided under **MIT** (except for the font, see below). Previously it was Unilicense, but I need to use some code downstream thats MIT so this is easier. Hopefully this isn't a problem for anyone.
 
 ## Font and its License
 
