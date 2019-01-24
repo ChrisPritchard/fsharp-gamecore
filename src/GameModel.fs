@@ -41,6 +41,9 @@ type GameConfig = {
     /// The string is the asset key of a font asset, specified 
     /// under assetsToLoad (it will not work without a font loaded)
     fpsFont: string option
+    /// Whether or not the mouse cursor should be visible in the render window
+    /// If false and you want a mouse cursor, you will need to render one yourself
+    mouseVisible: bool
 }
 
 /// Where the position is relative to the text drawn

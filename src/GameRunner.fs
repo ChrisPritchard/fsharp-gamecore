@@ -19,5 +19,6 @@ let runWindowedGame windowSize assetsToLoad advanceModel getView =
         resolution = Windowed windowSize
         assetsToLoad = assetsToLoad
         fpsFont = None
+        mouseVisible = true
     }
     runGame config advanceModel getView
