@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="image.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Program.fs" />
   </ItemGroup>
 
@@ -16,6 +19,7 @@
     <None Include="Connection.spritefont" />
     <MonoGameContentReference Include="**\*.mgcb" />
   </ItemGroup>
+  <ItemGroup />
 
   <ItemGroup>
     <ProjectReference Include="..\src\fsharp-gamecore.fsproj" />

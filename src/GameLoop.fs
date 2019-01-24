@@ -45,6 +45,9 @@ type GameLoop<'TModel> (config, updateModel, getView)
             graphics.PreferredBackBufferWidth <- w
             graphics.PreferredBackBufferHeight <- h
 
+        this.IsMouseVisible <- config.mouseVisible
+        
+
     let drawColour (spriteBatch: SpriteBatch) destRect colour = 
         spriteBatch.Draw(
             whiteTexture, asRectangle destRect, 

@@ -73,6 +73,7 @@ let main _ =
         ]
         // this will have FPS rendered in the top right, topping out at about 60 if all is well.
         fpsFont = Some "connection"
+        mouseVisible = true
     }
 
     // this starts the game. a simplified approach is below
