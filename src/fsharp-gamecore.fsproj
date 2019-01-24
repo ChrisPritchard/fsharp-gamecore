@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageVersion>0.0.6</PackageVersion>
+    <PackageVersion>0.0.7</PackageVersion>
     <PackageId>fsharp-gamecore</PackageId>
     <Title>FSharp GameCore</Title>
     <Authors>Christopher Pritchard (https://github.com/ChrisPritchard)</Authors>
     <Description>A fleshed-out game loop from MonoGame with supporting classes, intended to be used as the core loop of larger games. 2D only. All types and methods exposed are immutable and functional, just like the lambda gods intended.</Description>
     <PackageTags>monogame fsharp</PackageTags>
-    <PackageLicenseUrl>http://unlicense.org/</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/ChrisPritchard/fsharp-gamecore</RepositoryUrl>
   </PropertyGroup>
 
