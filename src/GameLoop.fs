@@ -30,8 +30,7 @@ type GameLoop<'TModel> (config, updateModel, getView)
     let mutable firstDrawComplete = false
 
     let mutable fps = 0
-    let mutable drawCount = 0
-    let mutable drawCountStart = 0.
+    let mutable lastFpsUpdate = 0.
 
     let mutable spriteBatch = Unchecked.defaultof<SpriteBatch>
 
@@ -127,12 +126,9 @@ type GameLoop<'TModel> (config, updateModel, getView)
             MediaPlayer.IsRepeating <- true
 
     let updateAndPrintFPS (gameTime : GameTime) fontAsset (spriteBatch: SpriteBatch) = 
-        if gameTime.TotalGameTime.TotalMilliseconds - drawCountStart > 1000. then
-            fps <- drawCount
-            drawCountStart <- gameTime.TotalGameTime.TotalMilliseconds
-            drawCount <- 0
-        else
-            drawCount <- drawCount + 1
+        if gameTime.TotalGameTime.TotalMilliseconds - lastFpsUpdate > 100. then
+            fps <- int (1. / gameTime.ElapsedGameTime.TotalSeconds)
+            lastFpsUpdate <- gameTime.TotalGameTime.TotalMilliseconds
         
         let position = graphics.PreferredBackBufferWidth - 40
         drawColour spriteBatch (position, 0, 40, 32) (Color.DarkSlateGray)
