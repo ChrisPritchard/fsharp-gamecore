@@ -31,6 +31,7 @@ type GameLoop<'TModel> (config, updateModel, getView)
 
     let mutable fps = 0
     let mutable lastFpsUpdate = 0.
+    let fpsUpdateInterval = 100.
 
     let mutable spriteBatch = Unchecked.defaultof<SpriteBatch>
 
@@ -126,7 +127,7 @@ type GameLoop<'TModel> (config, updateModel, getView)
             MediaPlayer.IsRepeating <- true
 
     let updateAndPrintFPS (gameTime : GameTime) fontAsset (spriteBatch: SpriteBatch) = 
-        if gameTime.TotalGameTime.TotalMilliseconds - lastFpsUpdate > 100. then
+        if gameTime.TotalGameTime.TotalMilliseconds - lastFpsUpdate > fpsUpdateInterval then
             fps <- int (1. / gameTime.ElapsedGameTime.TotalSeconds)
             lastFpsUpdate <- gameTime.TotalGameTime.TotalMilliseconds
         
