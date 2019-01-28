@@ -46,7 +46,8 @@ type GameLoop<'TModel> (config, updateModel, getView)
             graphics.PreferredBackBufferHeight <- h
 
         this.IsMouseVisible <- config.mouseVisible
-        
+        graphics.SynchronizeWithVerticalRetrace <- true
+        this.IsFixedTimeStep <- false        
 
     let drawColour (spriteBatch: SpriteBatch) destRect colour = 
         spriteBatch.Draw(
