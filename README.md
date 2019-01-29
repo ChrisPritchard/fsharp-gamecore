@@ -29,6 +29,14 @@ The previous iteration with its destRects didn't work out: the size of the text 
 
 Another, minor change is that the origins for text drawing have been expanded to centre plus all eight points of the compass. This is where the text will be drawn from relative to its given position, and an example of this is in the sample project.
 
+## Updates for 0.0.7
+
+The ability to show the mouse cursor was added, but primarily 0.0.7 was about exposing the game loop class so that other projects that need to override it can do so (e.g. FSharp-GameCore-ImGui)
+
+## Updates for 0.0.8
+
+The framerate was uncapped, and the way fps is calculated fixed to be more accurate. Finally, a member was added to GameLoop allowing access to the loaded texture asset map (again for use by FG-ImGui)
+
 ## Samples
 
 In this repository (or if you follow the repo url, if using Nuget), there is a samples folder containing a simple game demonstrating the use of the various hooks. For more advanced usage, check other projects on my Github. DungeonRaider (<https://github.com/ChrisPritchard/DungeonRaider>) uses this repo, for example.
