@@ -141,6 +141,14 @@ type GameLoop<'TModel> (config, updateModel, getView)
     member __.CurrentModel
         with get () =
             currentModel
+    
+    /// Returns a loaded Texture2D with the given asset key.
+    /// For use with descendent classes that need access to loaded textures
+    member __.Texture assetKey =
+        match Map.tryFind assetKey assets with
+        | Some (TextureAsset texture) -> texture
+        | None -> sprintf "Missing asset: %s" assetKey |> failwith
+        | _-> sprintf "Asset was not a Texture2D: %s" assetKey |> failwith
 
     override __.LoadContent() = 
         spriteBatch <- new SpriteBatch(this.GraphicsDevice)
