@@ -4,7 +4,7 @@ A fleshed-out game loop from MonoGame with supporting classes, intended to be us
 
 This is for **2D games only**, i.e. those that use 2d textures like sprites and raw colours. It also supports sounds, music and fonts.
 
-Designed so that all XNA bits and necessary mutable fields are wrapped inside the internal `GameLoop` class, allowing a parent application to remain purely functional and almost platform agnostic. Entry point is the `runGame` method from the GameRunner module.
+Designed so that all XNA bits and necessary mutable fields are wrapped inside the internal `GameLoop` class, allowing a parent application to remain purely functional and almost game engine agnostic. Entry point is the `runGame` method from the GameRunner module.
 
 Available on Nuget at: <https://www.nuget.org/packages/fsharp-gamecore>
 
