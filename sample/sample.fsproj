@@ -1,31 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="image.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Compile Include="Program.fs" />
-  </ItemGroup>
+    <ItemGroup>
+        <Content Include="image.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Compile Include="Program.fs" />
+    </ItemGroup>
 
-  <!-- Processed by content pipeline on build into xnb files -->
-  <ItemGroup>
-    <None Include="Content.mgcb" />
-    <None Include="Connection.ttf" />
-    <None Include="Connection.spritefont" />
-    <MonoGameContentReference Include="**\*.mgcb" />
-  </ItemGroup>
-  <ItemGroup />
+    <!-- Processed by content pipeline on build into xnb files -->
+    <ItemGroup>
+        <None Include="Content.mgcb" />
+        <None Include="Connection.ttf" />
+        <None Include="Connection.spritefont" />
+        <MonoGameContentReference Include="**\*.mgcb" />
+    </ItemGroup>
+    <ItemGroup />
 
-  <ItemGroup>
-    <ProjectReference Include="..\src\fsharp-gamecore.fsproj" />
-    <!-- Required to trigger the content build -->
-    <PackageReference Include="MonoGame.Content.Builder" Version="3.7.0.4" />
-    <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.7" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\src\fsharp-gamecore.fsproj" />
+        <!-- Required to trigger the content build -->
+        <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4" />
+        <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.4" />
+    </ItemGroup>
+
+    <Target Name="RestoreDotnetTools" BeforeTargets="CollectPackageReferences">
+        <Message
+            Text="Restoring dotnet tools (this might take a while depending on your internet speed and should only happen upon building your project for the first time, or after upgrading MonoGame, or clearing your nuget cache)"
+            Importance="High" />
+        <Exec Command="dotnet tool restore" />
+    </Target>
 
 </Project>

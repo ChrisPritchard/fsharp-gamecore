@@ -1,29 +1,48 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <PackageVersion>0.0.8</PackageVersion>
-    <PackageId>fsharp-gamecore</PackageId>
-    <Title>FSharp GameCore</Title>
-    <Authors>Christopher Pritchard (https://github.com/ChrisPritchard)</Authors>
-    <Description>A fleshed-out game loop from MonoGame with supporting classes, intended to be used as the core loop of larger games. 2D only. All types and methods exposed are immutable and functional, just like the lambda gods intended.</Description>
-    <PackageTags>monogame fsharp</PackageTags>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/ChrisPritchard/fsharp-gamecore</RepositoryUrl>
-  </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <IsPackable>true</IsPackable>
+        <PackageVersion>1.0.0</PackageVersion>
+        <PackageId>fsharp-gamecore</PackageId>
+        <Title>FSharp GameCore</Title>
+        <Authors>Chris Pritchard</Authors>
+        <Description>A fleshed-out game loop from MonoGame with supporting classes, intended to be
+            used as the core loop of larger games. 2D only. All types and methods exposed are
+            immutable and functional, just like the lambda gods intended.</Description>
+        <PackageTags>monogame;fsharp</PackageTags>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <RepositoryUrl>https://github.com/ChrisPritchard/fsharp-gamecore</RepositoryUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="GameModel.fs" />
-    <Compile Include="Helpers.fs" />
-    <Compile Include="GameLoop.fs" />
-    <Compile Include="GameRunner.fs" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Include="../LICENSE" Pack="true" PackagePath="" />
+        <None Include="../README.md" Pack="true" PackagePath="" />
+        <None Include="../icon.png" Pack="true" PackagePath="" />
+        <Compile Include="GameModel.fs" />
+        <Compile Include="Helpers.fs" />
+        <Compile Include="GameLoop.fs" />
+        <Compile Include="GameRunner.fs" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.7" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4" />
+    </ItemGroup>
+
+    <Target Name="GetGitVersion" BeforeTargets="GenerateNuspec">
+        <Exec Command="git rev-parse HEAD" ConsoleToMSBuild="true" IgnoreExitCode="true">
+            <Output TaskParameter="ConsoleOutput" PropertyName="GitCommitHash" />
+        </Exec>
+        <PropertyGroup>
+            <RepositoryCommit Condition="'$(GitCommitHash)' != ''">$(GitCommitHash)</RepositoryCommit>
+            <RepositoryCommit Condition="'$(RepositoryCommit)' == ''">unknown</RepositoryCommit>
+        </PropertyGroup>
+        <Message Text="RepositoryCommit: $(RepositoryCommit)" Importance="high" />
+    </Target>
 
 </Project>

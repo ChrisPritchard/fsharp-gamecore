@@ -1,19 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
-MinimumVisualStudioVersion = 15.0.26124.0
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "fsharp-gamecore", "src\fsharp-gamecore.fsproj", "{9CCD1598-9586-4814-A1AF-7B21B1287986}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "sample", "sample\sample.fsproj", "{96EB6FD2-669A-44C6-967F-925B3416F255}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{8F93AEFE-250F-4A1B-8053-2FF03B1F6260}"
-	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
-		LICENSE = LICENSE
-		README.md = README.md
-		SIL Open Font License.txt = SIL Open Font License.txt
-	EndProjectSection
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "fsharp-gamecore", "src\fsharp-gamecore.fsproj", "{BC6BF893-DDE4-4294-9BD5-E0E6780599E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,35 +17,23 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9CCD1598-9586-4814-A1AF-7B21B1287986}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9CCD1598-9586-4814-A1AF-7B21B1287986}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9CCD1598-9586-4814-A1AF-7B21B1287986}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{9CCD1598-9586-4814-A1AF-7B21B1287986}.Debug|x64.Build.0 = Debug|Any CPU
-		{9CCD1598-9586-4814-A1AF-7B21B1287986}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9CCD1598-9586-4814-A1AF-7B21B1287986}.Debug|x86.Build.0 = Debug|Any CPU
-		{9CCD1598-9586-4814-A1AF-7B21B1287986}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9CCD1598-9586-4814-A1AF-7B21B1287986}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9CCD1598-9586-4814-A1AF-7B21B1287986}.Release|x64.ActiveCfg = Release|Any CPU
-		{9CCD1598-9586-4814-A1AF-7B21B1287986}.Release|x64.Build.0 = Release|Any CPU
-		{9CCD1598-9586-4814-A1AF-7B21B1287986}.Release|x86.ActiveCfg = Release|Any CPU
-		{9CCD1598-9586-4814-A1AF-7B21B1287986}.Release|x86.Build.0 = Release|Any CPU
-		{96EB6FD2-669A-44C6-967F-925B3416F255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{96EB6FD2-669A-44C6-967F-925B3416F255}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{96EB6FD2-669A-44C6-967F-925B3416F255}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{96EB6FD2-669A-44C6-967F-925B3416F255}.Debug|x64.Build.0 = Debug|Any CPU
-		{96EB6FD2-669A-44C6-967F-925B3416F255}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{96EB6FD2-669A-44C6-967F-925B3416F255}.Debug|x86.Build.0 = Debug|Any CPU
-		{96EB6FD2-669A-44C6-967F-925B3416F255}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{96EB6FD2-669A-44C6-967F-925B3416F255}.Release|Any CPU.Build.0 = Release|Any CPU
-		{96EB6FD2-669A-44C6-967F-925B3416F255}.Release|x64.ActiveCfg = Release|Any CPU
-		{96EB6FD2-669A-44C6-967F-925B3416F255}.Release|x64.Build.0 = Release|Any CPU
-		{96EB6FD2-669A-44C6-967F-925B3416F255}.Release|x86.ActiveCfg = Release|Any CPU
-		{96EB6FD2-669A-44C6-967F-925B3416F255}.Release|x86.Build.0 = Release|Any CPU
+		{BC6BF893-DDE4-4294-9BD5-E0E6780599E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC6BF893-DDE4-4294-9BD5-E0E6780599E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC6BF893-DDE4-4294-9BD5-E0E6780599E9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BC6BF893-DDE4-4294-9BD5-E0E6780599E9}.Debug|x64.Build.0 = Debug|Any CPU
+		{BC6BF893-DDE4-4294-9BD5-E0E6780599E9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BC6BF893-DDE4-4294-9BD5-E0E6780599E9}.Debug|x86.Build.0 = Debug|Any CPU
+		{BC6BF893-DDE4-4294-9BD5-E0E6780599E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC6BF893-DDE4-4294-9BD5-E0E6780599E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC6BF893-DDE4-4294-9BD5-E0E6780599E9}.Release|x64.ActiveCfg = Release|Any CPU
+		{BC6BF893-DDE4-4294-9BD5-E0E6780599E9}.Release|x64.Build.0 = Release|Any CPU
+		{BC6BF893-DDE4-4294-9BD5-E0E6780599E9}.Release|x86.ActiveCfg = Release|Any CPU
+		{BC6BF893-DDE4-4294-9BD5-E0E6780599E9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {723255F6-B65D-49F7-A447-510569C70479}
+	GlobalSection(NestedProjects) = preSolution
+		{BC6BF893-DDE4-4294-9BD5-E0E6780599E9} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal
